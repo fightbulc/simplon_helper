@@ -96,4 +96,20 @@
     {
       return base_convert($number, 10, 36);
     }
+
+    // ##########################################
+
+    /**
+     * @param $filePath
+     * @return bool|string
+     */
+    public static function fileRead($filePath)
+    {
+      if(file_exists($filePath))
+      {
+        return join('', file($filePath));
+      }
+
+      return FALSE;
+    }
   }
