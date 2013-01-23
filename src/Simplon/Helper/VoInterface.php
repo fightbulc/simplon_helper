@@ -4,5 +4,5 @@
 
   interface VoInterface
   {
-    public function setData();
+    public function setRawData(array $rawData);
   }
