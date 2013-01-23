@@ -2,7 +2,8 @@
 
   namespace Simplon\Helper;
 
-  interface VoInterface
+  interface VoFlexInterface
   {
     public function setRawData(array $rawData);
+    public function getRawDataByKey($key);
   }

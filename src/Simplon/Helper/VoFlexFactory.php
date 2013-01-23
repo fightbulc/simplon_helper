@@ -2,32 +2,32 @@
 
   namespace Simplon\Helper;
 
-  class VoFactory
+  class VoFlexFactory
   {
     /**
      * @param array $arrayValues
-     * @param VoInterface $voClass
+     * @param VoFlexInterface $voClass
      * @return mixed
      */
-    public static function one(array $arrayValues, VoInterface $voClass)
+    public static function one(array $arrayValues, VoFlexInterface $voClass)
     {
-      return $voClass->setData($arrayValues);
+      return $voClass->setRawData($arrayValues);
     }
 
     // ##########################################
 
     /**
      * @param array $arrayValuesMany
-     * @param VoInterface $voClass
+     * @param VoFlexInterface $voClass
      * @return array
      */
-    public static function many(array $arrayValuesMany, VoInterface $voClass)
+    public static function many(array $arrayValuesMany, VoFlexInterface $voClass)
     {
       $factoriesVo = array();
 
       foreach($arrayValuesMany as $arrayValues)
       {
-        $voClass->setData($arrayValues);
+        $voClass->setRawData($arrayValues);
         $factoriesVo[] = clone $voClass;
       }
 
