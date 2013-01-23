@@ -2,14 +2,14 @@
 
   namespace Simplon\Helper;
 
-  class VoFlexFactory
+  class VoFactory
   {
     /**
      * @param array $arrayValues
-     * @param VoFlexAbstract $voClass
-     * @return $this
+     * @param VoInterface $voClass
+     * @return mixed
      */
-    public static function one(array $arrayValues, VoFlexAbstract $voClass)
+    public static function one(array $arrayValues, VoInterface $voClass)
     {
       return $voClass->setData($arrayValues);
     }
@@ -18,10 +18,10 @@
 
     /**
      * @param array $arrayValuesMany
-     * @param VoFlexAbstract $voClass
+     * @param VoInterface $voClass
      * @return array
      */
-    public static function many(array $arrayValuesMany, VoFlexAbstract $voClass)
+    public static function many(array $arrayValuesMany, VoInterface $voClass)
     {
       $factoriesVo = array();
 
