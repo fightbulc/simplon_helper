@@ -112,4 +112,16 @@
 
       return FALSE;
     }
+
+    // ##########################################
+
+    /**
+     * @param $string
+     * @param $salt
+     * @return string
+     */
+    public static function stringCreateHash($string, $salt)
+    {
+      return md5($salt . $string);
+    }
   }
