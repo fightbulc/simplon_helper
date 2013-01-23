@@ -6,28 +6,28 @@
   {
     /**
      * @param array $arrayValues
-     * @param VoFlexInterface $voClass
-     * @return mixed
+     * @param VoFlexAbstract $voClass
+     * @return $this
      */
-    public static function one(array $arrayValues, VoFlexInterface $voClass)
+    public static function one(array $arrayValues, VoFlexAbstract $voClass)
     {
-      return $voClass->setRawData($arrayValues);
+      return $voClass->setData($arrayValues);
     }
 
     // ##########################################
 
     /**
      * @param array $arrayValuesMany
-     * @param VoFlexInterface $voClass
+     * @param VoFlexAbstract $voClass
      * @return array
      */
-    public static function many(array $arrayValuesMany, VoFlexInterface $voClass)
+    public static function many(array $arrayValuesMany, VoFlexAbstract $voClass)
     {
       $factoriesVo = array();
 
       foreach($arrayValuesMany as $arrayValues)
       {
-        $voClass->setRawData($arrayValues);
+        $voClass->setData($arrayValues);
         $factoriesVo[] = clone $voClass;
       }
 

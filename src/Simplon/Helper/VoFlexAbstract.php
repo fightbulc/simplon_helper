@@ -2,10 +2,10 @@
 
   namespace Simplon\Helper;
 
-  abstract class VoFlexAbstract implements VoFlexInterface
+  abstract class VoFlexAbstract
   {
     /** @var array */
-    protected $_rawData = [];
+    protected $_data = [];
 
     // ##########################################
 
@@ -13,9 +13,9 @@
      * @param array $rawData
      * @return $this
      */
-    public function setRawData(array $rawData)
+    public function setData(array $rawData)
     {
-      $this->_rawData = $rawData;
+      $this->_data = $rawData;
 
       return $this;
     }
@@ -24,13 +24,37 @@
 
     /**
      * @param $key
+     * @param $val
+     * @return $this
+     */
+    protected function setDataByKey($key, $val)
+    {
+      $this->_data[$key] = $val;
+
+      return $this;
+    }
+
+    // ##########################################
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+      return $this->_data;
+    }
+
+    // ##########################################
+
+    /**
+     * @param $key
      * @return mixed|null
      */
-    public function getRawDataByKey($key)
+    protected function getDataByKey($key)
     {
-      if(isset($this->_rawData[$key]))
+      if(isset($this->_data[$key]))
       {
-        return $this->_rawData[$key];
+        return $this->_data[$key];
       }
 
       return NULL;
