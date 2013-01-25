@@ -18,6 +18,20 @@
 
     /**
      * @param $key
+     * @param $val
+     * @return static
+     */
+    protected function setByKey($key, $val)
+    {
+      $this->_data[$key] = $val;
+
+      return $this;
+    }
+
+    // ##########################################
+
+    /**
+     * @param $key
      * @return mixed|null
      */
     protected function getByKey($key)
