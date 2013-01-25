@@ -1,6 +1,6 @@
 <?php
 
-  namespace Simplon\Helper\Traits;
+  namespace Simplon\Helper;
 
   trait SingletonTrait
   {
