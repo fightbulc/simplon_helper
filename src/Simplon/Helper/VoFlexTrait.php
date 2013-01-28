@@ -43,4 +43,14 @@
 
       return NULL;
     }
+
+    // ##########################################
+
+    /**
+     * @return array
+     */
+    protected function getData()
+    {
+      return $this->_data;
+    }
   }
