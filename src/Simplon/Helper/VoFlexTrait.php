@@ -49,7 +49,7 @@
     /**
      * @return array
      */
-    protected function getData()
+    public function getData()
     {
       return $this->_data;
     }
