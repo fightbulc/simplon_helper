@@ -1,33 +1,35 @@
 <?php
 
-  namespace Simplon\Helper;
+    namespace Simplon\Helper;
 
-  trait VoExportTrait
-  {
-    /**
-     * @param $vo
-     * @return array
-     */
-    public static function one($vo)
+    trait VoExportTrait
     {
-      return array();
+        /**
+         * @param $vo
+         *
+         * @return array
+         */
+        public static function one($vo)
+        {
+            return array();
+        }
+
+        // ##########################################
+
+        /**
+         * @param $voMany
+         *
+         * @return array
+         */
+        public static function many($voMany)
+        {
+            $export = array();
+
+            foreach ($voMany as $vo)
+            {
+                $export[] = static::one($vo);
+            }
+
+            return $export;
+        }
     }
-
-    // ##########################################
-
-    /**
-     * @param $voMany
-     * @return array
-     */
-    public static function many($voMany)
-    {
-      $export = array();
-
-      foreach($voMany as $vo)
-      {
-        $export[] = static::one($vo);
-      }
-
-      return $export;
-    }
-  }

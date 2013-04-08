@@ -2,7 +2,7 @@
     "name": "simplon/helper",
     "description": "General helpers which come-in helpful.",
     "homepage": "https://github.com/fightbulc/simplon_helper",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "type": "library",
     "keywords": ["helper", "strings", "numbers", "time", "json"],
     "license": "MIT",
@@ -23,7 +23,7 @@
 
     "autoload": {
         "psr-0": {
-            "Simplon\\Helper\\": "src/"
+            "Simplon\\Helper": "src/"
         }
     }
 }
