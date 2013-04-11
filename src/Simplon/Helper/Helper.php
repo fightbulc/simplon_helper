@@ -121,13 +121,151 @@
         // ##########################################
 
         /**
-         * @param $string
+         * @param bool $string
          * @param $salt
          *
-         * @return string
+         * @return bool|string
          */
-        public static function stringCreateMd5Hash($string, $salt)
+        public static function stringCreateMd5Hash($string = FALSE, $salt)
         {
-            return md5($salt . $string);
+            if ($string !== FALSE)
+            {
+                $string = md5($salt . $string);
+            }
+
+            return $string;
+        }
+
+        // ##########################################
+
+        /**
+         * @param bool $string
+         * @param string $whiteSpacesReplacement
+         *
+         * @return bool|mixed
+         */
+        public static function stringUrlable($string = FALSE, $whiteSpacesReplacement = '-')
+        {
+            if ($string !== FALSE)
+            {
+                // remove existing replacement
+                if (!empty($whiteSpacesReplacement))
+                {
+                    $string = self::stringReplace($whiteSpacesReplacement, ' ', $string);
+                }
+
+                $string = self::stringTrim($string);
+                $string = self::stringAscii($string);
+                $string = self::stringToLower(self::stringReplace('[\W_]', ' ', $string));
+                $string = self::stringTrim($string);
+                $string = self::stringReplace('\s+', $whiteSpacesReplacement, $string);
+            }
+
+            return $string;
+        }
+
+        // ##########################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringAscii($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = self::stringReplace('Ä', 'Ae', $string);
+                $string = self::stringReplace('ä', 'ae', $string);
+                $string = self::stringReplace('Ü', 'Ue', $string);
+                $string = self::stringReplace('ü', 'ue', $string);
+                $string = self::stringReplace('Ö', 'Oe', $string);
+                $string = self::stringReplace('ö', 'oe', $string);
+                $string = iconv("UTF-8", 'ASCII//TRANSLIT', $string);
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param $string
+         *
+         * @return mixed
+         */
+        public static function stringTrim($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $string);
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param $string
+         * @param $find
+         * @param $replace
+         *
+         * @return mixed
+         */
+        public static function stringReplace($find, $replace, $string)
+        {
+            return preg_replace('/' . $find . '/u', $replace, $string);
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringToLower($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strtolower($string, 'UTF-8');
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringToUpper($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strtoupper($string, 'UTF-8');
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|int
+         */
+        public static function stringLength($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strlen($string, 'UTF-8');
+            }
+
+            return $string;
         }
     }
