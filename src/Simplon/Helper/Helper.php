@@ -27,6 +27,18 @@
         // ##########################################
 
         /**
+         * @param $path
+         *
+         * @return string
+         */
+        public static function pathTrim($path)
+        {
+            return rtrim($path, '/');
+        }
+
+        // ##########################################
+
+        /**
          * @param $json
          *
          * @return mixed
@@ -110,6 +122,7 @@
          */
         public static function fileRead($filePath)
         {
+            var_dump($filePath);
             if (file_exists($filePath))
             {
                 return join('', file($filePath));
