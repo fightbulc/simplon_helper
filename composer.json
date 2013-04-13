@@ -2,7 +2,7 @@
     "name": "simplon/helper",
     "description": "General helpers which come-in helpful.",
     "homepage": "https://github.com/fightbulc/simplon_helper",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "type": "library",
     "keywords": ["helper", "strings", "numbers", "time", "json"],
     "license": "MIT",
@@ -17,7 +17,7 @@
     "minimum-stability": "dev",
 
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "ext-json": "*"
     },
 
