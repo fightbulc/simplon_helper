@@ -27,6 +27,31 @@
         // ##########################################
 
         /**
+         * @param $url
+         *
+         * @return bool|string
+         */
+        public static function urlGetContents($url)
+        {
+            // set option to ingore http errors
+            $context = stream_context_create([
+                'http' => ['ignore_errors' => TRUE],
+            ]);
+
+            // fetch contents
+            $data = @file_get_contents($url, FALSE, $context);
+
+            if ($data)
+            {
+                return $data;
+            }
+
+            return FALSE;
+        }
+
+        // ##########################################
+
+        /**
          * @param $path
          *
          * @return string
@@ -122,7 +147,6 @@
          */
         public static function fileRead($filePath)
         {
-            var_dump($filePath);
             if (file_exists($filePath))
             {
                 return join('', file($filePath));
