@@ -193,6 +193,7 @@
 
                 $string = self::stringTrim($string);
                 $string = self::stringAscii($string);
+                $string = self::stringReplace('[\'\"\`]', "", $string);
                 $string = self::stringToLower(self::stringReplace('[\W_]', ' ', $string));
                 $string = self::stringTrim($string);
                 $string = self::stringReplace('\s+', $whiteSpacesReplacement, $string);

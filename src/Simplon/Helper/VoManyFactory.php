@@ -12,7 +12,7 @@
          */
         public static function factory(array $arrayValuesMany, \Closure $voClassClosure)
         {
-            $factoriesVo = array();
+            $factoriesVo = [];
 
             foreach ($arrayValuesMany as $arrayValues)
             {
