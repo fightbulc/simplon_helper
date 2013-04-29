@@ -39,7 +39,14 @@
             ]);
 
             // fetch contents
-            $data = @file_get_contents($url, FALSE, $context);
+            try
+            {
+                $data = file_get_contents($url, FALSE, $context);
+            }
+            catch (\Exception $e)
+            {
+                $data = FALSE;
+            }
 
             if ($data)
             {
