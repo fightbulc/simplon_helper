@@ -183,27 +183,33 @@
         // ##########################################
 
         /**
-         * @param bool $string
-         * @param string $whiteSpacesReplacement
+         * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
          *
-         * @return bool|mixed
+         * @param bool $string
+         * @param string $slug
+         * @param null $extra
+         *
+         * @return string
          */
-        public static function stringUrlable($string = FALSE, $whiteSpacesReplacement = '-')
+        public static function stringUrlable($string = FALSE, $slug = '-', $extra = NULL)
         {
-            if ($string !== FALSE)
-            {
-                // remove existing replacement
-                if (!empty($whiteSpacesReplacement))
-                {
-                    $string = self::stringReplace($whiteSpacesReplacement, ' ', $string);
-                }
+            return strtolower(trim(preg_replace('~[^0-9a-z' . preg_quote($extra, '~') . ']+~i', $slug, self::Unaccent($string)), $slug));
+        }
 
-                $string = self::stringTrim($string);
-                $string = self::stringAscii($string);
-                $string = self::stringReplace('[\'\"\`]', "", $string);
-                $string = self::stringToLower(self::stringReplace('[\W_]', ' ', $string));
-                $string = self::stringTrim($string);
-                $string = self::stringReplace('\s+', $whiteSpacesReplacement, $string);
+        // ##########################################
+
+        /**
+         * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
+         *
+         * @param $string
+         *
+         * @return string
+         */
+        public static function Unaccent($string)
+        {
+            if (strpos($string = htmlentities($string, ENT_QUOTES, 'UTF-8'), '&') !== FALSE)
+            {
+                $string = html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|caron|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i', '$1', $string), ENT_QUOTES, 'UTF-8');
             }
 
             return $string;
