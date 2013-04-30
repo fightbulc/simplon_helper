@@ -226,7 +226,7 @@
                 $string = self::stringReplace('ü', 'ue', $string);
                 $string = self::stringReplace('Ö', 'Oe', $string);
                 $string = self::stringReplace('ö', 'oe', $string);
-                $string = iconv("UTF-8", 'ASCII//TRANSLIT', $string);
+                $string = iconv("UTF-8", 'ASCII//IGNORE', $string);
             }
 
             return $string;
