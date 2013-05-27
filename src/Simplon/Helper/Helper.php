@@ -165,6 +165,38 @@
         // ##########################################
 
         /**
+         * @param $binaryData
+         *
+         * @return bool|int|string
+         */
+        public static function fileIdentifyType($binaryData)
+        {
+            $found = FALSE;
+
+            $types = [
+                'jpeg' => "\xFF\xD8\xFF",
+                'gif'  => 'GIF',
+                'png'  => "\x89\x50\x4e\x47\x0d\x0a",
+                'bmp'  => 'BM',
+            ];
+
+            $bytes = substr($binaryData, 8);
+
+            foreach ($types as $type => $header)
+            {
+                if (strpos($bytes, $header) !== FALSE)
+                {
+                    $found = $type;
+                    break;
+                }
+            }
+
+            return $found;
+        }
+
+        // ##########################################
+
+        /**
          * @param bool $string
          * @param $salt
          *
