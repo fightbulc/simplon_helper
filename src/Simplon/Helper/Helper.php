@@ -166,32 +166,21 @@
 
         /**
          * @param $binaryData
+         * @param string $typeShouldHave
          *
-         * @return bool|int|string
+         * @return bool
          */
-        public static function fileIdentifyType($binaryData)
+        public static function fileIsMimeType($binaryData, $typeShouldHave = 'image')
         {
-            $found = FALSE;
-
-            $types = [
-                'jpeg' => "\xFF\xD8\xFF",
-                'gif'  => 'GIF',
-                'png'  => "\x89\x50\x4e\x47\x0d\x0a",
-                'bmp'  => 'BM',
-            ];
-
-            $bytes = substr($binaryData, 8);
-
-            foreach ($types as $type => $header)
+            if (empty($typeShouldHave))
             {
-                if (strpos($bytes, $header) !== FALSE)
-                {
-                    $found = $type;
-                    break;
-                }
+                return FALSE;
             }
 
-            return $found;
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            $mimeType = $finfo->buffer($binaryData);
+
+            return strpos($mimeType, $typeShouldHave) !== FALSE ? TRUE : FALSE;
         }
 
         // ##########################################
