@@ -149,14 +149,22 @@
 
         /**
          * @param int $length
+         * @param null $customCharacters
          *
          * @return string
          */
-        public static function idCreateRandomToken($length = 10)
+        public static function idCreateRandomToken($length = 10, $customCharacters = NULL)
         {
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $randomString = '';
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+            // set custom characters
+            if ($customCharacters !== NULL && !empty($customCharacters))
+            {
+                $characters = $customCharacters;
+            }
+
+            // generate token
             for ($i = 0; $i < $length; $i++)
             {
                 $randomString .= $characters[rand(0, strlen($characters) - 1)];
