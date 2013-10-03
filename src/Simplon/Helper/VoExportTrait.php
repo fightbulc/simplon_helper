@@ -11,7 +11,7 @@
          */
         public static function one($vo)
         {
-            return array();
+            return [];
         }
 
         // ##########################################
@@ -23,11 +23,14 @@
          */
         public static function many($voMany)
         {
-            $export = array();
+            $export = [];
 
-            foreach ($voMany as $vo)
+            if ($voMany !== FALSE)
             {
-                $export[] = static::one($vo);
+                foreach ($voMany as $vo)
+                {
+                    $export[] = static::one($vo);
+                }
             }
 
             return $export;

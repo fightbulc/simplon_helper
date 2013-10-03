@@ -27,6 +27,50 @@
         // ##########################################
 
         /**
+         * @param $url
+         *
+         * @return bool|string
+         */
+        public static function urlGetContents($url)
+        {
+            // set option to ingore http errors
+            $context = stream_context_create([
+                'http' => ['ignore_errors' => TRUE],
+            ]);
+
+            // fetch contents
+            try
+            {
+                $data = file_get_contents($url, FALSE, $context);
+            }
+            catch (\Exception $e)
+            {
+                $data = FALSE;
+            }
+
+            if ($data)
+            {
+                return $data;
+            }
+
+            return FALSE;
+        }
+
+        // ##########################################
+
+        /**
+         * @param $path
+         *
+         * @return string
+         */
+        public static function pathTrim($path)
+        {
+            return rtrim($path, '/');
+        }
+
+        // ##########################################
+
+        /**
          * @param $json
          *
          * @return mixed
@@ -104,6 +148,34 @@
         // ##########################################
 
         /**
+         * @param int $length
+         * @param null $customCharacters
+         *
+         * @return string
+         */
+        public static function idCreateRandomToken($length = 10, $customCharacters = NULL)
+        {
+            $randomString = '';
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            // set custom characters
+            if ($customCharacters !== NULL && !empty($customCharacters))
+            {
+                $characters = $customCharacters;
+            }
+
+            // generate token
+            for ($i = 0; $i < $length; $i++)
+            {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+
+            return $randomString;
+        }
+
+        // ##########################################
+
+        /**
          * @param $filePath
          *
          * @return bool|string
@@ -121,13 +193,179 @@
         // ##########################################
 
         /**
-         * @param $string
+         * @param $binaryData
+         * @param string $typeShouldHave
+         *
+         * @return bool
+         */
+        public static function fileIsMimeType($binaryData, $typeShouldHave = 'image')
+        {
+            if (empty($typeShouldHave))
+            {
+                return FALSE;
+            }
+
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            $mimeType = $finfo->buffer($binaryData);
+
+            return strpos($mimeType, $typeShouldHave) !== FALSE ? TRUE : FALSE;
+        }
+
+        // ##########################################
+
+        /**
+         * @param bool $string
          * @param $salt
+         *
+         * @return bool|string
+         */
+        public static function stringCreateMd5Hash($string = FALSE, $salt)
+        {
+            if ($string !== FALSE)
+            {
+                $string = md5($salt . $string);
+            }
+
+            return $string;
+        }
+
+        // ##########################################
+
+        /**
+         * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
+         *
+         * @param bool $string
+         * @param string $slug
+         * @param null $extra
          *
          * @return string
          */
-        public static function stringCreateMd5Hash($string, $salt)
+        public static function stringUrlable($string = FALSE, $slug = '-', $extra = NULL)
         {
-            return md5($salt . $string);
+            return strtolower(trim(preg_replace('~[^0-9a-z' . preg_quote($extra, '~') . ']+~i', $slug, self::unaccent($string)), $slug));
+        }
+
+        // ##########################################
+
+        /**
+         * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
+         *
+         * @param $string
+         *
+         * @return string
+         */
+        public static function unaccent($string)
+        {
+            if (strpos($string = htmlentities($string, ENT_QUOTES, 'UTF-8'), '&') !== FALSE)
+            {
+                $string = html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|caron|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i', '$1', $string), ENT_QUOTES, 'UTF-8');
+            }
+
+            return $string;
+        }
+
+        // ##########################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringAscii($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = self::stringReplace('Ä', 'Ae', $string);
+                $string = self::stringReplace('ä', 'ae', $string);
+                $string = self::stringReplace('Ü', 'Ue', $string);
+                $string = self::stringReplace('ü', 'ue', $string);
+                $string = self::stringReplace('Ö', 'Oe', $string);
+                $string = self::stringReplace('ö', 'oe', $string);
+                $string = iconv("UTF-8", 'ASCII//IGNORE', $string);
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param $string
+         *
+         * @return mixed
+         */
+        public static function stringTrim($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $string);
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param $string
+         * @param $find
+         * @param $replace
+         *
+         * @return mixed
+         */
+        public static function stringReplace($find, $replace, $string)
+        {
+            return preg_replace('/' . $find . '/u', $replace, $string);
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringToLower($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strtolower($string, 'UTF-8');
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|string
+         */
+        public static function stringToUpper($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strtoupper($string, 'UTF-8');
+            }
+
+            return $string;
+        }
+
+        // ######################################
+
+        /**
+         * @param bool $string
+         *
+         * @return bool|int
+         */
+        public static function stringLength($string = FALSE)
+        {
+            if ($string !== FALSE)
+            {
+                $string = mb_strlen($string, 'UTF-8');
+            }
+
+            return $string;
         }
     }

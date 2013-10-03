@@ -12,11 +12,11 @@
          */
         public static function factory(array $arrayValuesMany, \Closure $voClassClosure)
         {
-            $factoriesVo = array();
+            $factoriesVo = [];
 
-            foreach ($arrayValuesMany as $arrayValues)
+            foreach ($arrayValuesMany as $key => $val)
             {
-                $factoriesVo[] = $voClassClosure($arrayValues);
+                $factoriesVo[] = $voClassClosure($key, $val);
             }
 
             return $factoriesVo;
