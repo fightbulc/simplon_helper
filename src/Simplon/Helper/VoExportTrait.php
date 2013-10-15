@@ -19,10 +19,15 @@
         /**
          * @param $voMany
          *
-         * @return array
+         * @return array|null
          */
         public static function many($voMany)
         {
+            if (empty($voMany))
+            {
+                return NULL;
+            }
+
             $export = [];
 
             if ($voMany !== FALSE)
