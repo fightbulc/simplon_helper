@@ -34,7 +34,12 @@
             {
                 foreach ($voMany as $vo)
                 {
-                    $export[] = static::one($vo);
+                    $result = static::one($vo);
+
+                    if ($result)
+                    {
+                        $export[] = $result;
+                    }
                 }
             }
 
