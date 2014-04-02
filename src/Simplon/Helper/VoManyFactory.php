@@ -16,7 +16,12 @@
 
             foreach ($arrayValuesMany as $key => $val)
             {
-                $factoriesVo[] = $voClassClosure($key, $val);
+                $response = $voClassClosure($key, $val);
+
+                if ($response !== NULL)
+                {
+                    $factoriesVo[] = $response;
+                }
             }
 
             return $factoriesVo;
