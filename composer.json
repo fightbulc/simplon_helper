@@ -1,10 +1,9 @@
 {
     "name": "simplon/helper",
-    "description": "General helpers which come-in helpful.",
+    "description": "Helpers for recurring tasks.",
     "homepage": "https://github.com/fightbulc/simplon_helper",
-    "version": "0.6.9",
     "type": "library",
-    "keywords": ["helper", "strings", "numbers", "time", "json"],
+    "keywords": ["helper", "strings", "value objects"],
     "license": "MIT",
     "authors": [
         {
@@ -14,16 +13,13 @@
         }
     ],
 
-    "minimum-stability": "dev",
-
     "require": {
-        "php": ">=5.4",
-        "ext-json": "*"
+        "php": ">=5.3"
     },
 
     "autoload": {
-        "psr-0": {
-            "Simplon\\Helper": "src/"
+        "psr-4": {
+            "Simplon\\Helper\\": "src/"
         }
     }
 }
