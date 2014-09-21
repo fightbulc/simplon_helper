@@ -9,7 +9,7 @@ class Helper
      *
      * @return string
      */
-    public static function trimUrl($url)
+    public static function urlTrim($url)
     {
         return trim($url, '/');
     }
@@ -19,18 +19,19 @@ class Helper
      *
      * @return string
      */
-    public static function trimPath($path)
+    public static function pathTrim($path)
     {
         return rtrim($path, '/');
     }
 
     /**
      * @param int $length
+     * @param null $prefix
      * @param null $customCharacters
      *
      * @return string
      */
-    public static function createRandomToken($length = 10, $customCharacters = null)
+    public static function stringCreateRandomToken($length = 12, $prefix = null, $customCharacters = null)
     {
         $randomString = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -41,13 +42,25 @@ class Helper
             $characters = $customCharacters;
         }
 
+        // handle prefix
+        if ($prefix !== null)
+        {
+            $prefixLength = strlen($prefix);
+            $length -= $prefixLength;
+
+            if ($length < 0)
+            {
+                $length = 0;
+            }
+        }
+
         // generate token
         for ($i = 0; $i < $length; $i++)
         {
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
         }
 
-        return $randomString;
+        return $prefix . $randomString;
     }
 
     /**
@@ -85,7 +98,7 @@ class Helper
      *
      * @return bool|string
      */
-    public static function getFileContent($filePath)
+    public static function fileGetContent($filePath)
     {
         if (file_exists($filePath))
         {

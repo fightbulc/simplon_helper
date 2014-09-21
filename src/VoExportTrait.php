@@ -17,13 +17,13 @@ trait VoExportTrait
     /**
      * @param array $voMany
      *
-     * @return array|null
+     * @return array
      */
     public static function many(array $voMany)
     {
         if (empty($voMany))
         {
-            return null;
+            return [];
         }
 
         // --------------------------------------
