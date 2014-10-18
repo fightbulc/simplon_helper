@@ -12,27 +12,23 @@ class DataValidator
     /**
      * @var array
      */
-    protected $fields = [];
+    private $fields = [];
 
     /**
      * @param $fieldName
-     * @param callable $voMethodClosure
+     * @param callable $validationClosure
+     * @param callable $successClosure
      *
      * @return DataValidator
      */
-    public function testField($fieldName, \Closure $voMethodClosure)
+    public function testField($fieldName, \Closure $validationClosure, \Closure $successClosure)
     {
-        $this->fields[$fieldName] = $voMethodClosure;
+        $this->fields[$fieldName] = [
+            'validation' => $validationClosure,
+            'success'    => $successClosure,
+        ];
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getFields()
-    {
-        return (array)$this->fields;
     }
 
     /**
@@ -56,11 +52,15 @@ class DataValidator
             if (isset($data[$k]))
             {
                 // get response from closure
-                $isValid = $fields[$k]($data[$k]);
+                $isValid = $fields[$k]['validation']($data[$k]);
 
                 if ($isValid === true)
                 {
                     unset($responses[$k]);
+
+                    // run success closure
+                    $fields[$k]['success']($data[$k]);
+
                     continue;
                 }
 
@@ -76,4 +76,12 @@ class DataValidator
 
         return true;
     }
-} 
+
+    /**
+     * @return array
+     */
+    private function getFields()
+    {
+        return (array)$this->fields;
+    }
+}
