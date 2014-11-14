@@ -2,22 +2,29 @@
 
 namespace Simplon\Helper;
 
+/**
+ * SingletonTrait
+ * @package Simplon\Helper
+ * @author Tino Ehrich (tino@bigpun.me)
+ */
 trait SingletonTrait
 {
-    /** @var  static */
-    protected static $_instance;
+    /**
+     * @var
+     */
+    protected static $instance;
 
     /**
      * @return static
      */
     public static function getInstance()
     {
-        if (!static::$_instance)
+        if (!static::$instance)
         {
-            static::$_instance = new static();
+            static::$instance = new static();
         }
 
-        return static::$_instance;
+        return static::$instance;
     }
 
     /**

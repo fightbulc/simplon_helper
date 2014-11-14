@@ -2,6 +2,11 @@
 
 namespace Simplon\Helper;
 
+/**
+ * Helper
+ * @package Simplon\Helper
+ * @author Tino Ehrich (tino@bigpun.me)
+ */
 class Helper
 {
     /**

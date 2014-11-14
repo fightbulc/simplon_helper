@@ -2,6 +2,11 @@
 
 namespace Simplon\Helper;
 
+/**
+ * VoExportTrait
+ * @package Simplon\Helper
+ * @author Tino Ehrich (tino@bigpun.me)
+ */
 trait VoExportTrait
 {
     /**
@@ -21,12 +26,10 @@ trait VoExportTrait
      */
     public static function many(array $voMany)
     {
-        if (empty($voMany))
+        if (empty($voMany) === true)
         {
             return [];
         }
-
-        // --------------------------------------
 
         $export = [];
 
