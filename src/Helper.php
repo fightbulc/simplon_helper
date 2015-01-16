@@ -30,6 +30,36 @@ class Helper
     }
 
     /**
+     * @param string|array $url
+     * @param array $params
+     * @param string $paramsKeyPatternLeft
+     * @param string $paramsKeyPatternRight
+     *
+     * @return string
+     */
+    public static function urlRender($url, array $params = [], $paramsKeyPatternLeft = '{{', $paramsKeyPatternRight = '}}')
+    {
+        if (is_array($url))
+        {
+            $parts = [];
+
+            foreach ($url as $val)
+            {
+                $parts[] = rtrim($val, '/');
+            }
+
+            $url = join('/', $url);
+        }
+
+        foreach ($params as $key => $val)
+        {
+            $url = str_replace($paramsKeyPatternLeft . $key . $paramsKeyPatternRight, $val, $url);
+        }
+
+        return (string)$url;
+    }
+
+    /**
      * @param int $length
      * @param null $prefix
      * @param null $customCharacters
