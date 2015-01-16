@@ -45,10 +45,10 @@ class Helper
 
             foreach ($url as $val)
             {
-                $parts[] = rtrim($val, '/');
+                $parts[] = trim($val, '/');
             }
 
-            $url = join('/', $url);
+            $url = join('/', $parts);
         }
 
         foreach ($params as $key => $val)
