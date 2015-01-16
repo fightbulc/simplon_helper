@@ -38,6 +38,33 @@ class Config
     /**
      * @param array $keys
      *
+     * @return bool
+     */
+    public static function hasConfigKeys(array $keys)
+    {
+        $config = self::getConfig();
+
+        while ($key = array_shift($keys))
+        {
+            if (isset($config[$key]) === false)
+            {
+                return false;
+            }
+
+            $config = $config[$key];
+        }
+
+        if (empty($config) === true)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param array $keys
+     *
      * @return array|null
      * @throws HelperException
      */

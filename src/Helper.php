@@ -30,17 +30,26 @@ class Helper
     }
 
     /**
-     * @param string $url
-     * @param string $path
+     * @param string|array $url
      * @param array $params
      * @param string $paramsKeyPatternLeft
      * @param string $paramsKeyPatternRight
      *
      * @return string
      */
-    public static function urlRender($url, $path = null, array $params = [], $paramsKeyPatternLeft = '{{', $paramsKeyPatternRight = '}}')
+    public static function urlRender($url, array $params = [], $paramsKeyPatternLeft = '{{', $paramsKeyPatternRight = '}}')
     {
-        $url = trim($url, '/') . '/' . trim($path, '/');
+        if (is_array($url))
+        {
+            $parts = [];
+
+            foreach ($url as $val)
+            {
+                $parts[] = rtrim($val, '/');
+            }
+
+            $url = join('/', $url);
+        }
 
         foreach ($params as $key => $val)
         {
