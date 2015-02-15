@@ -30,7 +30,7 @@ class Config
      */
     public static function setConfig(array $configCommon, array $configEnv = [])
     {
-        self::$config = array_merge($configCommon, $configEnv);
+        self::$config = array_merge($configEnv, $configCommon);
 
         return true;
     }
