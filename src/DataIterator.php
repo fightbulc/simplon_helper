@@ -5,14 +5,14 @@ namespace Simplon\Helper;
 /**
  * DataIterator
  * @package Simplon\Helper
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class DataIterator
 {
     /**
-     * @param array $data
-     * @param callable $closure
-     * @param bool $withKey
+     * @param array    $data
+     * @param \Closure $closure
+     * @param bool     $withKey
      *
      * @return array
      */
@@ -22,16 +22,32 @@ class DataIterator
 
         foreach ($data as $key => $value)
         {
-            if ($withKey === true)
+            $response = self::handleClosureCall($withKey, $closure, $key, $value);
+
+            if ($response !== null)
             {
-                $responses[] = $closure($key, $value);
-            }
-            else
-            {
-                $responses[] = $closure($value);
+                $responses[] = $response;
             }
         }
 
         return $responses;
+    }
+
+    /**
+     * @param bool     $withKey
+     * @param \Closure $closure
+     * @param mixed    $key
+     * @param mixed    $value
+     *
+     * @return mixed
+     */
+    private static function handleClosureCall($withKey, \Closure $closure, $key, $value)
+    {
+        if ($withKey === true)
+        {
+            return $closure($key, $value);
+        }
+
+        return $closure($value);
     }
 }
