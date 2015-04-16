@@ -5,7 +5,7 @@ namespace Simplon\Helper;
 /**
  * DataValidator
  * @package Simplon\Helper
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class DataValidator
 {
@@ -15,9 +15,9 @@ class DataValidator
     private $fields = [];
 
     /**
-     * @param $fieldName
-     * @param callable $validationClosure
-     * @param callable $successClosure
+     * @param string   $fieldName
+     * @param \Closure $validationClosure
+     * @param \Closure $successClosure
      *
      * @return DataValidator
      */

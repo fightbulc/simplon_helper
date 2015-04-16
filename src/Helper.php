@@ -5,12 +5,12 @@ namespace Simplon\Helper;
 /**
  * Helper
  * @package Simplon\Helper
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class Helper
 {
     /**
-     * @param $url
+     * @param string $url
      *
      * @return string
      */
@@ -20,7 +20,7 @@ class Helper
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
      * @return string
      */
@@ -31,9 +31,9 @@ class Helper
 
     /**
      * @param string|array $url
-     * @param array $params
-     * @param string $paramsKeyPatternLeft
-     * @param string $paramsKeyPatternRight
+     * @param array        $params
+     * @param string       $paramsKeyPatternLeft
+     * @param string       $paramsKeyPatternRight
      *
      * @return string
      */
@@ -60,19 +60,19 @@ class Helper
     }
 
     /**
-     * @param int $length
-     * @param null $prefix
-     * @param null $customCharacters
+     * @param int         $length
+     * @param null|string $prefix
+     * @param null|string $customCharacters
      *
      * @return string
      */
-    public static function stringCreateRandomToken($length = 12, $prefix = null, $customCharacters = null)
+    public static function createRandomToken($length = 12, $prefix = null, $customCharacters = null)
     {
         $randomString = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         // set custom characters
-        if ($customCharacters !== null && !empty($customCharacters))
+        if ($customCharacters !== null && empty($customCharacters) === false)
         {
             $characters = $customCharacters;
         }
@@ -99,11 +99,11 @@ class Helper
     }
 
     /**
-     * @param $url
+     * @param string $url
      *
      * @return bool|string
      */
-    public static function urlGetContents($url)
+    public static function urlGetContent($url)
     {
         // set option to ingore http errors
         $context = stream_context_create([
@@ -129,7 +129,7 @@ class Helper
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      *
      * @return bool|string
      */
@@ -144,8 +144,8 @@ class Helper
     }
 
     /**
-     * @param $binaryData
-     * @param null $typeShouldHave
+     * @param mixed $binaryData
+     * @param null  $typeShouldHave
      *
      * @return bool
      */
@@ -160,64 +160,5 @@ class Helper
         $mimeType = $finfo->buffer($binaryData);
 
         return strpos($mimeType, $typeShouldHave) !== false;
-    }
-
-    /**
-     * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
-     *
-     * @param bool $string
-     * @param string $slug
-     * @param null $extra
-     *
-     * @return string
-     */
-    public static function stringUrlable($string = false, $slug = '-', $extra = null)
-    {
-        return strtolower(trim(preg_replace('~[^0-9a-z' . preg_quote($extra, '~') . ']+~i', $slug, self::stringUnaccent($string)), $slug));
-    }
-
-    /**
-     * Taken from: https://github.com/alixaxel/phunction/blob/master/phunction/Text.php
-     *
-     * @param $string
-     *
-     * @return string
-     */
-    public static function stringUnaccent($string)
-    {
-        if (strpos($string = htmlentities($string, ENT_QUOTES, 'UTF-8'), '&') !== false)
-        {
-            $string = html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|caron|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i', '$1', $string), ENT_QUOTES, 'UTF-8');
-        }
-
-        return (string)$string;
-    }
-
-    /**
-     * @param $string
-     *
-     * @return string
-     */
-    public static function stringAscii($string)
-    {
-        $string = str_replace('Ä', 'Ae', $string);
-        $string = str_replace('ä', 'ae', $string);
-        $string = str_replace('Ü', 'Ue', $string);
-        $string = str_replace('ü', 'ue', $string);
-        $string = str_replace('Ö', 'Oe', $string);
-        $string = str_replace('ö', 'oe', $string);
-        $string = iconv("UTF-8", 'ASCII//IGNORE', $string);
-
-        return (string)$string;
-    }
-
-    /**
-     * @param $string
-     *
-     * @return string
-     */
-    public static function stringTrim($string)
-    {
-        return (string)preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $string);
     }
 }

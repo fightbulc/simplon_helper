@@ -5,7 +5,7 @@ namespace Simplon\Helper;
 /**
  * DataSetter
  * @package Simplon\Helper
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class DataSetter
 {
@@ -15,8 +15,8 @@ class DataSetter
     protected $fields = [];
 
     /**
-     * @param $fieldName
-     * @param callable $voMethodClosure
+     * @param string   $fieldName
+     * @param \Closure $voMethodClosure
      *
      * @return DataSetter
      */

@@ -66,7 +66,7 @@ class Config
      * @param array $keys
      *
      * @return array|null
-     * @throws HelperException
+     * @throws ConfigException
      */
     public static function getConfigByKeys(array $keys)
     {
@@ -77,7 +77,7 @@ class Config
         {
             if (isset($config[$key]) === false)
             {
-                throw new HelperException('Config entry for [' . $keysString . '] is missing.');
+                throw new ConfigException('Config entry for [' . $keysString . '] is missing.');
             }
 
             $config = $config[$key];
