@@ -65,7 +65,7 @@ class Config
     /**
      * @param array $keys
      *
-     * @return array|null
+     * @return mixed|null
      * @throws ConfigException
      */
     public static function getConfigByKeys(array $keys)
