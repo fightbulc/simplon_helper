@@ -3,10 +3,8 @@
 namespace Simplon\Helper;
 
 /**
- * DataIoVoTrait
- *
+ * Class DataIoVoTrait
  * @package Simplon\Helper
- * @author  Tino Ehrich (tino@bigpun.me)
  */
 trait DataIoVoTrait
 {
@@ -17,17 +15,25 @@ trait DataIoVoTrait
      */
     public function fromArray(array $data)
     {
-        foreach ($data as $fieldName => $val) {
+        foreach ($data as $fieldName => $val)
+        {
             // format field name
-            if (strpos($fieldName, '_') !== false) {
+            if (strpos($fieldName, '_') !== false)
+            {
                 $fieldName = self::camelCaseString($fieldName);
             }
 
             $setMethodName = 'set' . ucfirst($fieldName);
 
-            if (method_exists($this, $setMethodName)) {
+            // set by setter
+            if (method_exists($this, $setMethodName))
+            {
                 $this->$setMethodName($val);
+                continue;
             }
+
+            // set directly on field
+            $this->$fieldName = $val;
         }
 
         return $this;
@@ -40,21 +46,29 @@ trait DataIoVoTrait
      */
     public function toArray($snakeCase = true)
     {
-        $result            = [];
+        $result = [];
         $processableFields = get_class_vars(get_called_class());
 
         // render column names
-        foreach ($processableFields as $fieldName => $value) {
+        foreach ($processableFields as $fieldName => $value)
+        {
             $getMethodName = 'get' . ucfirst($fieldName);
 
             // format field name
-            if ($snakeCase === true && strpos($fieldName, '_') === false) {
+            if ($snakeCase === true && strpos($fieldName, '_') === false)
+            {
                 $fieldName = self::snakeCaseString($fieldName);
             }
 
-            if (method_exists($this, $getMethodName)) {
+            // set by getter
+            if (method_exists($this, $getMethodName))
+            {
                 $result[$fieldName] = $this->$getMethodName();
+                continue;
             }
+
+            // get from field
+            $result[$fieldName] = $this->$fieldName;
         }
 
         return $result;
