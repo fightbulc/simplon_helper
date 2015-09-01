@@ -31,13 +31,14 @@ class Helper
 
     /**
      * @param string|array $url
-     * @param array        $params
-     * @param string       $paramsKeyPatternLeft
-     * @param string       $paramsKeyPatternRight
+     * @param array $pathParams
+     * @param array $getParams
+     * @param string $paramsKeyPatternLeft
+     * @param string $paramsKeyPatternRight
      *
      * @return string
      */
-    public static function urlRender($url, array $params = [], $paramsKeyPatternLeft = '{{', $paramsKeyPatternRight = '}}')
+    public static function urlRender($url, array $pathParams = [], array $getParams = [], $paramsKeyPatternLeft = '{{', $paramsKeyPatternRight = '}}')
     {
         if (is_array($url))
         {
@@ -51,16 +52,23 @@ class Helper
             $url = join('/', $parts);
         }
 
-        foreach ($params as $key => $val)
+        // replace placeholder within the url paths
+        foreach ($pathParams as $key => $val)
         {
             $url = str_replace($paramsKeyPatternLeft . $key . $paramsKeyPatternRight, $val, $url);
+        }
+
+        // attach get params
+        if (empty($getParams) === false)
+        {
+            $url = $url . '?' . http_build_query($getParams);
         }
 
         return (string)$url;
     }
 
     /**
-     * @param int         $length
+     * @param int $length
      * @param null|string $prefix
      * @param null|string $customCharacters
      *
@@ -145,7 +153,7 @@ class Helper
 
     /**
      * @param mixed $binaryData
-     * @param null  $typeShouldHave
+     * @param null $typeShouldHave
      *
      * @return bool
      */
