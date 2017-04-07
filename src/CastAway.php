@@ -16,7 +16,7 @@ class CastAway
      */
     public static function toInt($val)
     {
-        return $val !== null ? (int)trim($val) : null;
+        return self::hasValue($val) ? (int)trim($val) : null;
     }
 
     /**
@@ -26,7 +26,7 @@ class CastAway
      */
     public static function toString($val)
     {
-        return $val !== null ? (string)trim($val) : null;
+        return self::hasValue($val) ? (string)trim($val) : null;
     }
 
     /**
@@ -36,7 +36,7 @@ class CastAway
      */
     public static function toBool($val)
     {
-        return $val !== null ? $val === true : null;
+        return self::hasValue($val) ? $val === true : null;
     }
 
     /**
@@ -46,7 +46,7 @@ class CastAway
      */
     public static function toFloat($val)
     {
-        return $val !== null ? (float)trim($val) : null;
+        return self::hasValue($val) ? (float)trim($val) : null;
     }
 
     /**
@@ -56,7 +56,7 @@ class CastAway
      */
     public static function toArray($val)
     {
-        return $val !== null ? (array)$val : null;
+        return self::hasValue($val) ? (array)$val : null;
     }
 
     /**
@@ -66,17 +66,27 @@ class CastAway
      */
     public static function toObject($val)
     {
-        return $val !== null ? (object)$val : null;
+        return self::hasValue($val) ? (object)$val : null;
     }
 
     /**
-     * @param string|null   $val
+     * @param string|null $val
      * @param \DateTimeZone $dateTimeZone
      *
      * @return \DateTime|null
      */
     public static function toDateTime($val, \DateTimeZone $dateTimeZone = null)
     {
-        return $val !== null ? new \DateTime(trim($val), $dateTimeZone) : null;
+        return self::hasValue($val) ? new \DateTime(trim($val), $dateTimeZone) : null;
+    }
+
+    /**
+     * @param mixed $val
+     *
+     * @return bool
+     */
+    private static function hasValue($val)
+    {
+        return $val !== null && $val !== '';
     }
 }
