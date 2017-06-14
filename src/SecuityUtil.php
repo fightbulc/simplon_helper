@@ -15,9 +15,9 @@ class SecurityUtil
      * @param int $algo
      * @param array $options
      *
-     * @return bool|string
+     * @return string|null
      */
-    public static function createPasswordHash(string $password, int $algo = PASSWORD_BCRYPT, array $options = [])
+    public static function createPasswordHash(string $password, int $algo = PASSWORD_BCRYPT, array $options = []): ?string
     {
         if (empty($options))
         {
@@ -26,7 +26,12 @@ class SecurityUtil
             ];
         }
 
-        return password_hash($password, $algo, $options);
+        if ($hash = password_hash($password, $algo, $options))
+        {
+            return $hash;
+        }
+
+        return null;
     }
 
     /**
