@@ -1,12 +1,12 @@
 {
   "name": "simplon/helper",
-  "description": "Helpers for recurring requirements.",
+  "description": "Helpers for recurring requirements",
   "homepage": "https://github.com/fightbulc/simplon_helper",
   "type": "library",
   "keywords": [
-    "helper",
-    "strings",
-    "value objects"
+    "casts",
+    "passwords",
+    "tokens"
   ],
   "license": "MIT",
   "authors": [
@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4"
+    "php": ">=7.1"
   },
   "autoload": {
     "psr-4": {
