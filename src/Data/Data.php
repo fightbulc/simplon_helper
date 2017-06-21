@@ -24,10 +24,11 @@ abstract class Data implements DataInterface
 
     /**
      * @param array $data
+     * @param bool $buildChecksum Build checksum of data. Use FALSE in case you're rebuilding existing object.
      *
      * @return static
      */
-    public function fromArray(array $data)
+    public function fromArray(array $data, bool $buildChecksum = true)
     {
         if ($data)
         {
@@ -56,8 +57,10 @@ abstract class Data implements DataInterface
                 }
             }
 
-            // lets create checksum here
-            $this->internalChecksum = $this->calcMd5($this->toArray());
+            if ($buildChecksum)
+            {
+                $this->internalChecksum = $this->calcMd5($this->toArray());
+            }
         }
 
         return $this;
@@ -121,14 +124,13 @@ abstract class Data implements DataInterface
 
     /**
      * @param string $json
+     * @param bool $buildChecksum Build checksum of data. Use FALSE in case you're rebuilding existing object.
      *
      * @return static
      */
-    public function fromJson(string $json)
+    public function fromJson(string $json, bool $buildChecksum = true)
     {
-        return $this->fromArray(
-            json_decode($json, true)
-        );
+        return $this->fromArray(json_decode($json, true), $buildChecksum);
     }
 
     /**
