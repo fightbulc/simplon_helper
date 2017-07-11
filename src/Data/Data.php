@@ -15,6 +15,17 @@ abstract class Data implements DataInterface
     private $internalChecksum;
 
     /**
+     * @param array|null $data
+     */
+    public function __construct(?array $data = null)
+    {
+        if ($data)
+        {
+            $this->fromArray($data);
+        }
+    }
+
+    /**
      * @return bool
      */
     public function isChanged(): bool
