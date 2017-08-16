@@ -4,9 +4,6 @@ namespace Simplon\Helper\Data;
 
 use Simplon\Helper\Interfaces\DataInterface;
 
-/**
- * @package Simplon\Helper\Data
- */
 abstract class Data implements DataInterface
 {
     /**
@@ -21,8 +18,10 @@ abstract class Data implements DataInterface
     {
         if ($data)
         {
-            $this->fromArray($data);
+            $this->fromArray($data, false);
         }
+
+        $this->internalChecksum = $this->calcMd5($this->toRawArray());
     }
 
     /**
@@ -30,7 +29,7 @@ abstract class Data implements DataInterface
      */
     public function isChanged(): bool
     {
-        return $this->internalChecksum !== $this->calcMd5($this->toArray());
+        return $this->internalChecksum !== $this->calcMd5($this->toRawArray());
     }
 
     /**
@@ -70,7 +69,7 @@ abstract class Data implements DataInterface
 
             if ($buildChecksum)
             {
-                $this->internalChecksum = $this->calcMd5($this->toArray());
+                $this->internalChecksum = $this->calcMd5($this->toRawArray());
             }
         }
 
@@ -177,5 +176,41 @@ abstract class Data implements DataInterface
         ksort($data);
 
         return md5(json_encode($data));
+    }
+
+    /**
+     * @param bool $snakeCase
+     *
+     * @return array
+     */
+    private function toRawArray(bool $snakeCase = true): array
+    {
+        $result = [];
+
+        $visibleFields = get_class_vars(get_called_class());
+
+        // render column names
+        foreach ($visibleFields as $fieldName => $value)
+        {
+            $propertyName = $fieldName;
+
+            // format field name
+            if ($snakeCase === true && strpos($fieldName, '_') === false)
+            {
+                $fieldName = self::snakeCaseString($fieldName);
+            }
+
+            // get from field
+            if (property_exists($this, $propertyName))
+            {
+                if ($propertyName !== 'internalChecksum')
+                {
+                    $result[$fieldName] = $this->$propertyName;
+                    continue;
+                }
+            }
+        }
+
+        return $result;
     }
 }
