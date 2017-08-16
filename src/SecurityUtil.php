@@ -2,9 +2,6 @@
 
 namespace Simplon\Helper;
 
-/**
- * @package Simplon\Helper
- */
 class SecurityUtil
 {
     const TOKEN_ALL_CASE_LETTERS_NUMBERS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

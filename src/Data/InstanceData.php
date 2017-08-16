@@ -2,9 +2,6 @@
 
 namespace Simplon\Helper\Data;
 
-/**
- * @package Simplon\Helper\Data
- */
 class InstanceData
 {
     /**

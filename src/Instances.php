@@ -4,9 +4,6 @@ namespace Simplon\Helper;
 
 use Simplon\Helper\Data\InstanceData;
 
-/**
- * @package Simplon\Helper
- */
 class Instances
 {
     /**

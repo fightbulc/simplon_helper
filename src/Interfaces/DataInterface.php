@@ -2,9 +2,6 @@
 
 namespace Simplon\Helper\Interfaces;
 
-/**
- * @package Simplon\Helper\Interfaces
- */
 interface DataInterface
 {
     /**

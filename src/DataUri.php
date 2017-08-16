@@ -2,9 +2,6 @@
 
 namespace Simplon\Helper;
 
-/**
- * @package Simplon\Helper
- */
 class DataUri
 {
     /**
