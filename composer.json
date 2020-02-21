@@ -17,6 +17,7 @@
     }
   ],
   "require": {
+    "ext-json": "*",
     "php": ">=7.1",
     "dusank/knapsack": "^10.0"
   },
