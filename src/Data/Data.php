@@ -205,7 +205,13 @@ abstract class Data implements DataInterface
             {
                 if ($propertyName !== 'internalChecksum')
                 {
-                    $result[$fieldName] = $this->$propertyName;
+                    $value = null;
+
+                    if(isset($this->$propertyName)) {
+                        $value = $this->$propertyName;
+                    }
+
+                    $result[$fieldName] = $value;
                     continue;
                 }
             }
